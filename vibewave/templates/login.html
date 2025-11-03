@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VenuSwar Login</title>
+</head>
+<body style="margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(135deg, #6c5ce7, #00b894);">
+
+  <!-- Top App Name Bar -->
+  <div style="width:100%; padding:20px; background:linear-gradient(90deg, #6c5ce7, #00b894); color:white; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+    <h1 style="margin:0; font-size:32px;">🎶 Venu Music Recommender Web</h1>
+    <p style="margin:5px 0 0 0; font-size:16px;">Your Personalized Mood-Based Music Companion</p>
+  </div>
+
+  <!-- Main Content -->
+  <div style="display:flex; height:calc(100vh - 100px);"> <!-- Adjusted height after top bar -->
+
+    <!-- Left Panel -->
+    <div style="flex:1; background:radial-gradient(circle, #2d3436 0%, #000000 100%); color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; box-shadow:inset 0 0 50px rgba(0,0,0,0.6);">
+      <h2 style="font-size:40px; margin-bottom:10px; text-shadow:2px 2px 6px rgba(0,0,0,0.7);"><b>VenuSwar</b></h2>
+      <p style="font-size:18px; margin-bottom:30px;">🎧 Login to explore your music world</p>
+      <form action="/" method="POST" style="display:flex; flex-direction:column; width:280px; background:rgba(255,255,255,0.05); padding:25px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+        <input type="text" name="username" placeholder="Username" required style="margin-bottom:15px; padding:12px; border:none; border-radius:5px; font-size:16px; background:rgba(255,255,255,0.1); color:white;">
+        <input type="password" name="password" placeholder="Password" required style="margin-bottom:20px; padding:12px; border:none; border-radius:5px; font-size:16px; background:rgba(255,255,255,0.1); color:white;">
+        <button type="submit" style="padding:12px; background:#00cec9; border:none; color:white; font-size:18px; border-radius:5px; cursor:pointer; transition:0.3s;">Login</button>
+      </form>
+    </div>
+
+    <!-- Right Panel -->
+    <div style="flex:1; position:relative; background:linear-gradient(135deg, #00b894, #6c5ce7); display:flex; justify-content:center; align-items:center; overflow:hidden;">
+      <img src="{{ url_for('static', filename='images/maxresdefault.jpg') }}" alt="Music" style="width:85%; height:70%; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:1;">
+      <div style="position:absolute; bottom:30px; left:30px; z-index:2; background:rgba(0,0,0,0.5); padding:20px; border-radius:10px;">
+        <h2 style="margin:0; color:white; font-size:28px;">🎼 Feel the Beats</h2>
+        <p style="margin:5px 0 0 0; color:#dfe6e9;">Your personalized music world awaits</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VenuSwar Player</title>
+</head>
+<body style="margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(135deg, #6c5ce7, #00b894);">
+
+  <!-- Top Bar -->
+  <div style="width:100%; padding:20px; background:linear-gradient(90deg, #00b894, #6c5ce7); color:white; text-align:center;">
+    <h1>🎶 VenuSwar</h1>
+    <p>{{ category }} Recommendations</p>
+  </div>
+
+  <div style="max-width:800px; margin:50px auto; background:white; padding:40px; border-radius:20px;">
+    <h2 style="text-align:center; color:#6c5ce7;">🎵 Recommended Songs</h2>
+
+    <!-- Display category specific info -->
+    <div style="text-align:center; color:#636e72; font-size:16px; margin-bottom:20px;">
+      {% if category == "Mood" %}
+        <strong>Mood:</strong> {{ mood }} | <strong>Language:</strong> {{ language }} | <strong>Year:</strong> {{ year }}
+      {% elif category == "Hero" %}
+        <strong>Hero:</strong> {{ hero }} | <strong>Language:</strong> {{ language }}
+      {% else %}
+        <strong>Category:</strong> {{ category }} | <strong>Language:</strong> {{ language }}
+      {% endif %}
+    </div>
+
+    {% if songs %}
+      <ul style="list-style:none; padding:0;">
+        {% for song in songs %}
+          <li style="margin:20px 0; padding:20px; background:linear-gradient(135deg, #74ebd5, #ACB6E5); border-radius:12px;">
+            <img src="{{ song.image }}" alt="{{ song.name }}" style="width:100%; max-width:400px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+            <p style="font-size:18px; margin:10px 0 0;"><strong>{{ song.name }}</strong></p>
+            <p style="font-size:16px; margin:5px 0;">by {{ song.artist }}</p>
+            <p><a href="{{ song.external }}" target="_blank" style="color:#6c5ce7; font-weight:bold;">▶ Listen on Spotify</a></p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p style="text-align:center;">No songs to display. Please submit a recommendation first.</p>
+    {% endif %}
+
+    <div style="text-align:center; margin-top:30px;">
+      <a href="/categories" style="color:#6c5ce7;">🔙 Back to Categories</a>
+    </div>
+  </d
