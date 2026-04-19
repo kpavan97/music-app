@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PhaniSwar Recommend</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6c5ce7, #00b894);
+    }
+    .top-bar {
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(90deg, #00b894, #6c5ce7);
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .container {
+      max-width: 750px;
+      margin: 50px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 18px;
+      color: #2d3436;
+    }
+    select, input[type="text"] {
+      padding: 12px;
+      border: 2px solid #6c5ce7;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    select:focus, input[type="text"]:focus {
+      border-color: #00b894;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0,184,148,0.3);
+    }
+    button {
+      padding: 14px;
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #4834d4;
+      transform: translateY(-2px);
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .back-link a {
+      color: #6c5ce7;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    .back-link a:hover {
+      color: #00b894;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <h1>🎶 PhaniSwar</h1>
+    <p>Recommendation Form - {{ category }}</p>
+  </div>
+
+  <div class="container">
+
+    <form action="/recommend?category={{ category }}" method="POST">
+
+      {% if category == "Mood" %}
+        <label>Mood:</label>
+        <select name="mood" required>
+          {% for mood in moods %}
+            <option value="{{ mood }}">{{ mood }}</option>
+          {% endfor %}
+        </select>
+
+        <label>Language:</label>
+        <select name="language" required>
+          {% for lang in languages %}
+            <option value="{{ lang }}">{{ lang }}</option>
+          {% endfor %}
+        </select>
+
+        <label>Year:</label>
+        <input type="text" name="year" required placeholder="Enter year">
+
+      {% elif category == "Hero" %}
+        <label>Language:</label>
+        <select name="language" required onchange="updateHeroes(this.value)">
+          {% for lang in languages %}
+            <option value="{{ lang }}">{{ lang }}</option>
+          {% endfor %}
+        </select>
+
+        <label>Hero:</label>
+        <select name="hero" id="hero-select" required></select>
+
+      {% elif category in ["Trending", "Janapada", "Item Songs", "Pop Songs"] %}
+        <label>Language:</label>
+        <select name="language" required>
+          {% for lang in languages %}
+            <option value="{{ lang }}">{{ lang }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+
+      <button type="submit">🎵 Get Recommendations</button>
+    </form>
+
+    <div class="back-link">
+      <a href="/categories">🔙 Back to Categories</a>
+    </div>
+
+  </div>
+
+  {% if category == "Hero" %}
+  <script>
+    const heroes = {{ heroes | tojson }};
+    function updateHeroes(lang) {
+      const select = document.getElementById('hero-select');
+      select.innerHTML = '';
+      heroes[lang].forEach(hero => {
+        const opt = document.createElement('option');
+        opt.value = hero;
+        opt.innerHTML = hero;
+        select.appendChild(opt);
+      });
+    }
+    window.onload = () => updateHeroes(document.querySelector('select[name="language"]').value);
+  </script>
+  {% endif %}
+
+</body>
+</html>
